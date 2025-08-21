@@ -3,7 +3,7 @@ name: LLM Test Suite
 on:
   push:
     branches:
-      -main
+      - main
   pull_request:
 
 jobs:
