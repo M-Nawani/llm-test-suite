@@ -25,7 +25,7 @@ jobs:
           pip install allure-pytest
 
       - name: Run tests with Allure
-        run: pytest --alluredir=playwright-test-results/allure-results
+        run: pytest -v --alluredir=playwright-test-results/allure-results
 
   publish-results:
     needs: run-tests
