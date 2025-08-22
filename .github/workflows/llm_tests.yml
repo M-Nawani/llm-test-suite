@@ -12,7 +12,7 @@ jobs:
     steps:
       # Checkout repo
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Start Ollama container and pull TinyLlama
       - name: Start Ollama container
@@ -21,7 +21,7 @@ jobs:
             -v ollama:/root/.ollama \
             -p 11434:11434 \
             --name ollama ollama/ollama
-          docker exec ollama ollama pull tinlyllama
+          docker exec ollama ollama pull tinyllama
           
       # Wait a few seconds for Ollama server to be ready
       - name: Wait for Ollama server
@@ -40,7 +40,7 @@ jobs:
 
       # Upload Allure results
       - name: Upload Allure results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-results
           path: playwright-test-results/allure-results
@@ -50,7 +50,7 @@ jobs:
     needs: start-ollama
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
