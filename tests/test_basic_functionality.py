@@ -54,6 +54,42 @@ def test_answer_simple_fact_question(llm_client) -> None:
 
 
 @pytest.mark.functionality
+def test_estav_requirement(llm_client) -> None:
+    """
+    Test that the LLM can correctly answer a basic visa realted question.
+    """
+    response: Dict[str, Any] = llm_client.generate("Do EU citizens need a visa to visit Puerto Rico?")
+    assert_no_api_error(response)
+
+    text_lower: str = response["text"].strip().lower()
+    assert "esta" in text_lower, f"Expected 'ESTA' in response: {response['text']}"
+
+
+@pytest.mark.functionality
+def test_visa_requirement(llm_client) -> None:
+    """
+    Test that the LLM can correctly answer a basic visa realted question.
+    """
+    response: Dict[str, Any] = llm_client.generate("Do Indian citizens require a visa for Bhutan")
+    assert_no_api_error(response)
+
+    text_lower: str = response["text"].strip().lower()
+    assert "entry permit" in text_lower, f"Expected 'Entry permit' in response: {response['text']}"
+
+
+@pytest.mark.functionality
+def test_currency_of_japan(llm_client) -> None:
+    """
+    Test that the LLM can correctly answer a currency related question
+    """
+    response: Dict[str, Any] = llm_client.generate("What currency is used in Japan?")
+    assert_no_api_error(response)
+
+    text_lower: str = response["text"].strip().lower()
+    assert "japanese yen" in text_lower, f"Expected 'Japanese Yen' in response: {response['text']}"
+
+
+@pytest.mark.functionality
 def test_maintains_context_across_turns(llm_client) -> None:
     """
     Test that the LLM retains context in a multi-turn conversation.

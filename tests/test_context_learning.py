@@ -29,6 +29,17 @@ def test_self_consistency(llm_client) -> None:
     answer = response["text"].strip()
     assert_contains_phrase(answer, "2")
 
+@pytest.mark.context_learning
+def test_passport_reminder(llm_client) -> None:
+    """Test that the assistant recalls passport expiry in a multi-turn conversation."""
+    prompt = (
+        "User: My passport expires in 3 months.\n"
+        "Assistant: Okay.\n"
+        "User: How many months till my passport expires ???"
+    )
+    response: Dict[str, Any] = llm_client.generate(prompt)
+    assert_contains_phrase(response["text"], "3 months")
+
 
 @pytest.mark.context_learning
 def test_no_contradictions(llm_client) -> None:

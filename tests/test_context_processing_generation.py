@@ -33,6 +33,9 @@ def assert_summary_contains_keywords(summary: str, keywords: list[str]):
 
 @pytest.mark.content_generation
 def test_numbered_list_output(llm_client) -> None:
+    """
+    Test that the LLM generates a properly formatted numbered list.
+    """
     response: Dict[str, Any] = llm_client.generate(
         "List 3 fruits. The output should be a numbered list."
     )
@@ -45,6 +48,9 @@ def test_numbered_list_output(llm_client) -> None:
 
 @pytest.mark.content_generation
 def test_json_output(llm_client) -> None:
+    """
+    Test that the LLM produces valid JSON with required fields.
+    """
     response: Dict[str, Any] = llm_client.generate(
         "Create a JSON file with name: 'John' and age: '33'."
     )
@@ -57,6 +63,9 @@ def test_json_output(llm_client) -> None:
 
 @pytest.mark.content_generation
 def test_summarization_quality(llm_client) -> None:
+    """
+    Test that the LLM generates a concise, accurate summary with key details.
+    """
     original_text = (
         "Albert Einstein was a German-born theoretical physicist who developed the theory "
         "of relativity, one of the two pillars of modern physics. His work is also known "

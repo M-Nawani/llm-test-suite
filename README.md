@@ -6,8 +6,11 @@ It focuses on **robustness**, **performance**, **context handling**, and **hallu
 ## 📂 Project structure
 
 ```plaintext
-llm-test-suite/
-├── llmtestclient.py                              # Ollama LLM test client (config + helpers)
+llmtestingwithpython/
+├── clients/
+│   ├── baseclient.py                              # Base LLM client interface
+│   ├── ollama_client.py                           # Ollama LLM client implementation
+│   └── __init__.py
 ├── tests/
 │   ├── test_basic_functionality.py                # Basic behavior & sanity checks
 │   ├── test_context_learning.py                   # Context retention & in-context learning
@@ -16,7 +19,16 @@ llm-test-suite/
 │   ├── test_robustness.py                         # Prompt injection & logical consistency
 │   ├── test_hallucination.py                      # Hallucination detection & factual tests
 │   └── __init__.py
-└── README.md
+├── __pycache__/                                   # Python cache files (ignored in git)
+├── .pytest_cache/                                 # Pytest cache
+├── .git/                                         # Git repository data
+├── venv/                                         # Python virtual environment
+├── conftest.py                                   # Pytest fixtures
+├── pytest.ini                                    # Pytest configuration
+├── requirements.txt                              # Python dependencies
+├── README.md                                     # Project README
+├── LICENSE                                       # License file
+└── .gitignore                                    # Git ignore rules
 ```
 
 ## 🚀 Features
@@ -77,6 +89,17 @@ pytest tests/test_robustness.py
 
 ```bash
 pytest tests/test_robustness.py::test_prompt_injection_resilience -q
+```
+
+- To run tests based on markers
+
+```bash
+pytest -m robustness
+```
+- To view the allure reports
+
+```bash
+allure generate allure-results -o allure-report --clean
 ```
 
 ## 📌 Notes

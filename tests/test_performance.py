@@ -74,3 +74,30 @@ def test_concurrent_requests(llm_client) -> None:
 
     avg_latency = sum(latencies) / len(latencies)
     assert avg_latency < 3.0, f"Average latency too high under concurrency: {avg_latency:.2f}s"
+
+@pytest.mark.performance
+def test_flight_lookup_latency(llm_client) -> None:
+    """
+    Ensure flight search responses are fast.
+    """
+    response: Dict[str, Any] = llm_client.generate("List flights from New York to London on July 15")
+    assert_no_api_error(response)
+
+    latency = response["latency"]
+    print(f"Flight lookup latency: {latency:.2f} seconds")
+    assert latency <= 3.0, f"Flight lookup too slow: {latency:.2f}s"
+
+
+@pytest.mark.performance
+def test_visa_lookup_latency(llm_client) -> None:
+    """
+    Ensure visa requirement responses are fast.
+    """
+    response: Dict[str, Any] = llm_client.generate(
+        "What documents are required for an Indian citizen to fly to the US?"
+    )
+    assert_no_api_error(response)
+
+    latency = response["latency"]
+    print(f"Visa lookup latency: {latency:.2f} seconds")
+    assert latency <= 2.0, f"Visa lookup too slow: {latency:.2f}s"
